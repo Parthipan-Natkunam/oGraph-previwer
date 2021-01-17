@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <link href="./popup.css" rel="stylesheet" />
 <body id="mainPopup" class="no-overflow">
+  <div class="toast" id="toast"></div>
   <div class="popup no-overflow">
     <h1 class="popup__heading">OGraph Previewer</h1>
     <div class="popup__content">
@@ -18,24 +19,11 @@
         </div>
 
         <div class="content-box" id="data">
-          <button class="top-action-btn" title="copy">&#128203;</button>
+          <button class="top-action-btn" title="copy" id="copy-btn">
+            &#128203;
+          </button>
           <div class="data-box__content">
-            <div class="code">
-              {<br />
-              <span class="key">title</span>:
-              <span class="value">some random title</span>,<br />
-              <span class="key">image</span>:
-              <span class="value">https://mydoamin.io/image_1.png</span>,<br />
-              <span class="key">description</span>:
-              <span class="value"
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                eum voluptatem natus laboriosam, minus odit incidunt
-                perspiciatis sunt culpa numquam nobis molestiae hic similique,
-                quasi nemo dolores temporibus, delectus quam!,</span
-              ><br />
-              <span class="key">url</span>:
-              <span class="value">myawseomedomain.com</span> <br />}
-            </div>
+            <div class="code" id="codeui">Loading...Please Wait...</div>
           </div>
         </div>
       </div>

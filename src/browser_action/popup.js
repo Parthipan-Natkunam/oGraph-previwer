@@ -5,7 +5,7 @@ let data = {};
 const setData = (ogData) => (data = { ...ogData });
 const getData = () => data;
 
-/* POpup UI Interaction */
+/* popup UI Interaction */
 const switchTab = (event) => {
   if (event && event.target) {
     if (event.target.tagName !== "BUTTON") {
@@ -19,11 +19,32 @@ const switchTab = (event) => {
       document.querySelector(".content-box.active").classList.remove("active");
       event.target.classList.add("active");
       document.getElementById(tabToSwitch).classList.add("active");
+      if (tabToSwitch === "data") {
+        updateDataView();
+      }
     }
   }
 };
 
 document.getElementById("tabs").addEventListener("click", switchTab);
+document.getElementById("copy-btn").addEventListener("click", () => {
+  const toastConatiner = document.getElementById("toast");
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(JSON.stringify(getData()));
+    toastConatiner.innerHTML = "Data Copied to Clipboard.";
+    toastConatiner.style.display = "block";
+  } else {
+    toastConatiner.innerHTML = "Feature not supported by your browser version";
+    toastConatiner.classList.add("error");
+    toastConatiner.style.display = "block";
+  }
+  toastTimeoutId = setTimeout(() => {
+    toastConatiner.style.display = "none";
+    toastConatiner.classList.remove("error");
+    toastConatiner.innerHTML = "";
+    clearTimeout(toastTimeoutId);
+  }, 3000);
+});
 
 /*Image Utils*/
 function getImageWidth(imageUrl) {
@@ -34,6 +55,20 @@ function getImageWidth(imageUrl) {
     };
     img.src = imageUrl;
   });
+}
+
+/*populate datatab UI*/
+function updateDataView() {
+  if (Object.keys(getData()).length) {
+    const dataUIContainer = document.getElementById("codeui");
+    let templateString = "{<br/>";
+    for (const [key, value] of Object.entries(getData())) {
+      templateString += `<span class="key">${key}</span>: <span class="value">${value}</span></br>`;
+    }
+    templateString += "}";
+
+    dataUIContainer.innerHTML = templateString;
+  }
 }
 
 /*populate preview UI with data from chrome script execution*/

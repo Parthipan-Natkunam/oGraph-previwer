@@ -101,3 +101,20 @@
 .value {
   color: #00ff23;
 }
+
+.toast {
+  position: absolute;
+  padding: 10px;
+  margin: 10px;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  background: #006b9c;
+  color: #fff;
+  display: none;
+  z-index: 1;
+}
+
+.toast.error {
+  background: #9c1b0a;
+}
