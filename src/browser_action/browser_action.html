@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<style type="text/css">
-  #mainPopup {
-    background: #ececec;
-    margin: 0;
-    padding: 0;
-  }
-  .popup {
-    padding: 10px;
-    height: 200px;
-    width: 400px;
-    font-family: "Courier New", Courier, monospace;
-  }
-  .popup__heading {
-    font-size: 2em;
-    margin: 0;
-    color: #004582;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #d6d6d6;
-  }
-</style>
-<body id="mainPopup">
-  <div class="popup">
+<link href="./popup.css" rel="stylesheet" />
+<body id="mainPopup" class="no-overflow">
+  <div class="popup no-overflow">
     <h1 class="popup__heading">OGraph Previewer</h1>
+    <div class="popup__content">
+      <div class="popup__tabs" id="tabs">
+        <button class="popup__tab-btn active" data-tab="preview">
+          Preview
+        </button>
+        <button class="popup__tab-btn" data-tab="data">Data</button>
+      </div>
+      <div class="popup__tab-content">
+        <div class="content-box active" id="preview">
+          <div class="preview-box__content">
+            <img
+              src="https://source.unsplash.com/random/362x200"
+              width="100%"
+              height="auto"
+            />
+            <h2>Title of The Article Goes Here.</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Consectetur voluptas nesciunt impedit molestiae et adipisci
+              placeat consequuntur. Voluptatibus aperiam at nesciunt quos amet
+              iure, modi harum ullam nostrum, delectus odio?
+            </p>
+            <h4>myawesomewebsite.com</h4>
+          </div>
+        </div>
+
+        <div class="content-box" id="data">
+          <button class="top-action-btn" title="copy">&#128203;</button>
+          <div class="data-box__content">
+            <div class="code">
+              {<br />
+              <span class="key">title</span>:
+              <span class="value">some random title</span>,<br />
+              <span class="key">image</span>:
+              <span class="value">https://mydoamin.io/image_1.png</span>,<br />
+              <span class="key">description</span>:
+              <span class="value"
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+                eum voluptatem natus laboriosam, minus odit incidunt
+                perspiciatis sunt culpa numquam nobis molestiae hic similique,
+                quasi nemo dolores temporibus, delectus quam!,</span
+              ><br />
+              <span class="key">url</span>:
+              <span class="value">myawseomedomain.com</span> <br />}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <script src="./popup.js"></script>
 </body>
