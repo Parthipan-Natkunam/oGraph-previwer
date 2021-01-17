@@ -1,3 +1,10 @@
+/*global State for the extension*/
+let data = {};
+
+/*state helpers*/
+const setData = (ogData) => (data = { ...ogData });
+const getData = () => data;
+
 /* POpup UI Interaction */
 const switchTab = (event) => {
   if (event && event.target) {
@@ -29,11 +36,11 @@ function getImageWidth(imageUrl) {
   });
 }
 
-/*populate UI with data from chrome script execution*/
-function updatePreview(ogData) {
-  if (Object.keys(ogData).length) {
+/*populate preview UI with data from chrome script execution*/
+function updatePreview() {
+  if (Object.keys(getData()).length) {
     const previewContainer = document.getElementById("preview-og-data");
-    const { title, image: imageSrc, description, site_name, url } = ogData;
+    const { title, image: imageSrc, description, site_name, url } = getData();
     if (previewContainer) {
       getImageWidth(imageSrc)
         .then((imgWidth) => {
@@ -75,5 +82,6 @@ const ogParser = `(function(){
 
 chrome.tabs.executeScript(null, { code: ogParser }, (result) => {
   const ogData = result ? result[0] : {};
-  updatePreview(ogData);
+  setData(ogData);
+  updatePreview();
 });
