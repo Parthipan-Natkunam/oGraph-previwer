@@ -1,4 +1,5 @@
 import State from "./modules/state";
+import { getImageWidth } from "./modules/utils";
 
 /*global State for the extension*/
 let data = new State();
@@ -43,20 +44,6 @@ document.getElementById("copy-btn").addEventListener("click", () => {
     clearTimeout(toastTimeoutId);
   }, 3000);
 });
-
-/*Image Utils*/
-function getImageWidth(imageUrl) {
-  return new Promise(function (resolve, reject) {
-    if (!imageUrl) {
-      reject();
-    }
-    const img = new Image();
-    img.onload = function () {
-      resolve(this.width);
-    };
-    img.src = imageUrl;
-  });
-}
 
 /*populate datatab UI*/
 function updateDataView() {
@@ -134,7 +121,7 @@ const ogParser = `(function(){
 })()`;
 
 chrome.tabs.executeScript(null, { code: ogParser }, (result) => {
-  const ogData = result ? result[0] : {};
+  const ogData = result?.[0] || {};
   data.setData(ogData);
   updatePreview();
 });
