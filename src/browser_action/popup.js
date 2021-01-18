@@ -1,7 +1,6 @@
 import State from "./modules/state";
-import { getImageWidth } from "./modules/utils";
+import { getImageWidth, getOgParserCodeString } from "./modules/utils";
 
-/*global State for the extension*/
 let data = new State();
 
 /* popup UI Interaction */
@@ -106,21 +105,7 @@ function updatePreview() {
   }
 }
 
-/*Chrome Tab HTML Parse og tags*/
-const ogParser = `(function(){
-  const ogData = {};
-  const ogTags = document.querySelectorAll('meta[property^="og:"]');
-  ogTags.forEach(tag=>{
-    const key = tag.getAttribute("property").substr(3);
-    const value = tag.getAttribute("content");
-    if(key){
-      ogData[key] = value;
-    }
-  });
-  return ogData;
-})()`;
-
-chrome.tabs.executeScript(null, { code: ogParser }, (result) => {
+chrome.tabs.executeScript(null, { code: getOgParserCodeString() }, (result) => {
   const ogData = result?.[0] || {};
   data.setData(ogData);
   updatePreview();
