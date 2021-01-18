@@ -10,13 +10,9 @@
     "128": "icons/icon128.png"
   },
   "permissions": ["http://*/*", "https://*/*"],
-  "background": {
-    "scripts": ["src/bg/background.js"],
-    "persistent": true
-  },
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser action demo",
+    "default_title": "oGraph Previewer",
     "default_popup": "src/browser_action/browser_action.html"
   }
 }
