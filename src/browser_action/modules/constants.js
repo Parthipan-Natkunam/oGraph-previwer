@@ -7,6 +7,8 @@ export const TABS_ID = "tabs";
 export const COPY_BTN_ID = "copy-btn";
 export const TOAST_ID = "toast";
 export const ERROR = "error";
+export const CODE_CONTAINER_ID = "codeui";
+export const PREVIEW_CONTAINER_ID = "preview-og-data";
 
 /*toast messages*/
 export const COPY_SUCCESSFUL = "Data Copied to Clipboard";
@@ -19,3 +21,9 @@ export const NOTIFY_CRITICAL = "error";
 /*css values*/
 export const DISPLAY_BLOCK = "block";
 export const DISPLAY_NONE = "none";
+
+/*Preview UI Template types*/
+export const PREVIEW_UI = {
+  WITH_IMAGE: "withImage",
+  WITHOUT_IMAGE: "withoutImage",
+};
