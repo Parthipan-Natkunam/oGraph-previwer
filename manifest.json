@@ -9,7 +9,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["http://*/*", "https://*/*"],
+  "permissions": ["activeTab"],
   "browser_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "oGraph Previewer",
