@@ -1,48 +1,11 @@
-import State from "./modules/state";
+import { COPY_BTN_ID, TABS_ID } from "./modules/constants";
+import { copyData, switchTab } from "./modules/eventHandlers";
+import data from "./modules/state";
 import { getImageWidth, getOgParserCodeString } from "./modules/utils";
 
-let data = new State();
-
-/* popup UI Interaction */
-const switchTab = (event) => {
-  if (event && event.target) {
-    if (event.target.tagName !== "BUTTON") {
-      return;
-    }
-    const tabToSwitch = event.target.dataset.tab;
-    if (tabToSwitch) {
-      document
-        .querySelector(".popup__tab-btn.active")
-        .classList.remove("active");
-      document.querySelector(".content-box.active").classList.remove("active");
-      event.target.classList.add("active");
-      document.getElementById(tabToSwitch).classList.add("active");
-      if (tabToSwitch === "data") {
-        updateDataView();
-      }
-    }
-  }
-};
-
-document.getElementById("tabs").addEventListener("click", switchTab);
-document.getElementById("copy-btn").addEventListener("click", () => {
-  const toastConatiner = document.getElementById("toast");
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(JSON.stringify(data.getData()));
-    toastConatiner.innerHTML = "Data Copied to Clipboard.";
-    toastConatiner.style.display = "block";
-  } else {
-    toastConatiner.innerHTML = "Feature not supported by your browser version";
-    toastConatiner.classList.add("error");
-    toastConatiner.style.display = "block";
-  }
-  toastTimeoutId = setTimeout(() => {
-    toastConatiner.style.display = "none";
-    toastConatiner.classList.remove("error");
-    toastConatiner.innerHTML = "";
-    clearTimeout(toastTimeoutId);
-  }, 3000);
-});
+/*Attach Event Listeners*/
+document.getElementById(TABS_ID).addEventListener("click", switchTab);
+document.getElementById(COPY_BTN_ID).addEventListener("click", copyData);
 
 /*populate datatab UI*/
 function updateDataView() {
@@ -109,4 +72,5 @@ chrome.tabs.executeScript(null, { code: getOgParserCodeString() }, (result) => {
   const ogData = result?.[0] || {};
   data.setData(ogData);
   updatePreview();
+  updateDataView();
 });
