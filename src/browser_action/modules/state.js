@@ -1,21 +1,12 @@
 class State {
-  data = {};
-  instance = null;
-
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
-    }
-    return this;
-  }
-
+  #data = {};
   getData() {
-    return this.data;
+    return this.#data;
   }
 
   setData(data) {
-    this.data = data;
+    this.#data = data;
   }
 }
 
-export default State;
+export default new State();
