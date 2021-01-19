@@ -4,7 +4,7 @@ module.exports = {
     path: `${__dirname}/src/browser_action`,
     filename: "bundle.js",
   },
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
