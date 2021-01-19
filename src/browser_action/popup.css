@@ -118,3 +118,7 @@
 .toast.error {
   background: #9c1b0a;
 }
+
+.no-data {
+  color: #9c1b0a;
+}

@@ -1,10 +1,15 @@
 import {
   CODE_CONTAINER_ID,
+  NO_OG_DATA,
   PREVIEW_CONTAINER_ID,
   PREVIEW_UI,
 } from "./constants";
 import data from "./state";
 import { getImageWidth } from "./utils";
+
+const getNoPreviewTemplateString = () => {
+  return `<h3 class="no-data">${NO_OG_DATA}</h3>`;
+};
 
 const getCodeTemplateString = () => {
   let templateString = "{<br/>";
@@ -31,27 +36,29 @@ const getPreviewTemplateString = (
 
   templateString += `
     <div ${imageContainerComputedStyle}></div>
-    <h2>${title}</h2>
+    <h2>${title ?? ""}</h2>
     <p>
-     ${description}
+     ${description ?? ""}
     </p>
-    <h4>${site_name ? site_name : url}</h4>
+    <h4>${site_name ?? url ?? ""}</h4>
   `;
   return templateString;
 };
 
 /*populate datatab UI*/
 export function updateDataView() {
+  const dataUIContainer = document.getElementById(CODE_CONTAINER_ID);
   if (Object.keys(data.getData()).length) {
-    const dataUIContainer = document.getElementById(CODE_CONTAINER_ID);
     dataUIContainer.innerHTML = getCodeTemplateString();
+    return;
   }
+  dataUIContainer.innerHTML = "{}";
 }
 
 /*populate preview UI with data from chrome script execution*/
 export function updatePreview() {
+  const previewContainer = document.getElementById(PREVIEW_CONTAINER_ID);
   if (Object.keys(data.getData()).length) {
-    const previewContainer = document.getElementById(PREVIEW_CONTAINER_ID);
     const {
       title,
       image: imageSrc,
@@ -59,31 +66,31 @@ export function updatePreview() {
       site_name,
       url,
     } = data.getData();
-    if (previewContainer) {
-      let template;
-      getImageWidth(imageSrc)
-        .then((imgWidth) => {
-          template = getPreviewTemplateString(PREVIEW_UI.WITH_IMAGE, {
-            title,
-            description,
-            imageSrc,
-            site_name,
-            url,
-            imgWidth,
-          });
-        })
-        .catch(() => {
-          template = getPreviewTemplateString(PREVIEW_UI.WITHOUT_IMAGE, {
-            title,
-            description,
-            site_name,
-            url,
-          });
-        })
-        .finally(() => {
-          previewContainer.innerHTML = template;
+    let template;
+    getImageWidth(imageSrc)
+      .then((imgWidth) => {
+        template = getPreviewTemplateString(PREVIEW_UI.WITH_IMAGE, {
+          title,
+          description,
+          imageSrc,
+          site_name,
+          url,
+          imgWidth,
         });
-    }
+      })
+      .catch(() => {
+        template = getPreviewTemplateString(PREVIEW_UI.WITHOUT_IMAGE, {
+          title,
+          description,
+          site_name,
+          url,
+        });
+      })
+      .finally(() => {
+        previewContainer.innerHTML = template;
+      });
+  } else {
+    previewContainer.innerHTML = getNoPreviewTemplateString();
   }
 }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/browser_action/popup.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config webpack.config.js && webpack serve"
+    "build": "node_modules/.bin/webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

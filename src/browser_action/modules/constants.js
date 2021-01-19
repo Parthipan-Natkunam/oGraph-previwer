@@ -27,3 +27,6 @@ export const PREVIEW_UI = {
   WITH_IMAGE: "withImage",
   WITHOUT_IMAGE: "withoutImage",
 };
+
+/*no data*/
+export const NO_OG_DATA = "No og tags present in this page";
