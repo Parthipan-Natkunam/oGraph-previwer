@@ -30,12 +30,11 @@ export const autoDismissToast = (toastElement, timeout = 3000) => {
 
 export const showToast = ({ toastElement, type, message }) => {
   switch (type) {
-    case NOTIFY_CRITICAL: {
+    case NOTIFY_CRITICAL:
       toastElement.classList.add(ERROR);
-    }
-    default: {
+      break;
+    default:
       toastElement.classList.remove(ERROR);
-    }
   }
   toastElement.innerHTML = message;
   toastElement.style.display = DISPLAY_BLOCK;
