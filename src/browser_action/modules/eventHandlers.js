@@ -13,18 +13,22 @@ import {
 } from "./constants";
 import data from "./state";
 
-const isButton = (element) => element?.tagName === "BUTTON" || false;
+export const isButton = (element) => element?.tagName === "BUTTON" || false;
 
-const autoDismissToast = (toastElement, timeout = 3000) => {
+export const hideToast = (toastElement) => {
+  toastElement.style.display = DISPLAY_NONE;
+  toastElement.classList.remove(ERROR);
+  toastElement.innerHTML = "";
+};
+
+export const autoDismissToast = (toastElement, timeout = 3000) => {
   const toastTimeoutId = setTimeout(() => {
-    toastElement.style.display = DISPLAY_NONE;
-    toastElement.classList.remove(ERROR);
-    toastElement.innerHTML = "";
+    hideToast(toastElement);
     clearTimeout(toastTimeoutId);
   }, timeout);
 };
 
-const showToast = ({ toastElement, type, message }) => {
+export const showToast = ({ toastElement, type, message }) => {
   switch (type) {
     case NOTIFY_CRITICAL: {
       toastElement.classList.add(ERROR);

@@ -8,6 +8,9 @@
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
+  "jest": {
+    "verbose": true
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Parthipan-Natkunam/oGraph-previwer.git"
