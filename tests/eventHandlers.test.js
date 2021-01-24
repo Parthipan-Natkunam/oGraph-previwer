@@ -1,4 +1,7 @@
+import fs from "fs";
+import path from "path";
 import {
+  ACTIVE,
   COPY_FAILED,
   COPY_SUCCESSFUL,
   DISPLAY_BLOCK,
@@ -9,10 +12,18 @@ import {
 } from "../src/browser_action/modules/constants";
 import {
   autoDismissToast,
+  copyData,
   hideToast,
   isButton,
   showToast,
+  switchTab,
 } from "../src/browser_action/modules/eventHandlers";
+import data from "../src/browser_action/modules/state";
+
+const html = fs.readFileSync(
+  path.resolve(__dirname, "../src/browser_action/browser_action.html"),
+  "utf-8"
+);
 
 const getMockDOM = () => {
   return {
@@ -111,5 +122,78 @@ describe("Application event handlers: hideToast helper method", () => {
     expect(mockToastElement.classList.remove).toBeCalledTimes(1);
     expect(mockToastElement.classList.remove).toBeCalledWith(ERROR);
     expect(mockToastElement.innerHTML).toEqual("");
+  });
+});
+
+describe("Application event handlers: switchTab method", () => {
+  beforeAll(() => {
+    document.documentElement.innerHTML = html.toString();
+  });
+  test("switches tab on invocation", () => {
+    let tabButton = document.querySelector('button[data-tab="data"]');
+    let tabContent = document.getElementById("data");
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+    switchTab({ target: tabButton });
+    expect(tabButton.classList.contains(ACTIVE)).toBe(true);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(true);
+    tabButton = document.querySelector('button[data-tab="preview"]');
+    tabContent = document.getElementById("preview");
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+    switchTab({ target: tabButton });
+    expect(tabButton.classList.contains(ACTIVE)).toBe(true);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(true);
+  });
+  test("doesn't perform tabswitch when event object is invalid", () => {
+    let tabButton = document.querySelector('button[data-tab="data"]');
+    let tabContent = document.getElementById("data");
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+    switchTab(null);
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+  });
+  test("doesn't perform tabswitch when target is not a button", () => {
+    let tabContent = document.getElementById("data");
+    let tabButton = tabContent;
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+    switchTab({ target: tabButton });
+    expect(tabButton.classList.contains(ACTIVE)).toBe(false);
+    expect(tabContent.classList.contains(ACTIVE)).toBe(false);
+  });
+});
+
+describe("Application event handlers: copyData method", () => {
+  const mockData = {
+    title: "my article",
+    description: "my test article data",
+  };
+
+  const originalClipboard = { ...global.navigator.clipboard };
+
+  beforeEach(() => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
+    global.navigator.clipboard = mockClipboard;
+
+    document.documentElement.innerHTML = html.toString();
+    jest.spyOn(data, "getData").mockReturnValue(mockData);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    global.navigator.clipboard = originalClipboard;
+  });
+
+  test("copies data to the clipboard", () => {
+    copyData();
+    expect(data.getData).toBeCalledTimes(1);
+    expect(navigator.clipboard.writeText).toBeCalledTimes(1);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+      JSON.stringify(mockData)
+    );
   });
 });
