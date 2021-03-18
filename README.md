@@ -1,6 +1,6 @@
-<h2 align="center">
+<p align="center">
 
-<img  src="./readmeImages/icon128.png" height="120px" style="vertical-align:middle;"><span style="vertical-align:middle;">&nbsp;OGraph Previewer</span>
+<img  src="./readmeImages/icon128.png" height="120px" style="vertical-align:middle;"><span style="vertical-align:middle;">&nbsp;<b>OGraph Previewer</b></span>
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bb1e5fc0058b4068b200977326b351a8)](https://www.codacy.com/gh/Parthipan-Natkunam/oGraph-previwer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Parthipan-Natkunam/oGraph-previwer&utm_campaign=Badge_Grade)
 
@@ -16,7 +16,10 @@
     <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=282803&theme=dark" alt="Featured on Product Hunt"/>
 </a>
 
-</h2>
+</p>
+<br/>
+<p align="center"><a href='https://ko-fi.com/H2H03ZSCJ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a></p>
+<br/>
 
 A chrome extension to quickly preview open graph meta tag data of any web page in the current tab and retrieve it in a JSON format.
 
