@@ -1,6 +1,6 @@
 export function getImageWidth(imageUrl) {
   return new Promise(function (resolve, reject) {
-    if (!imageUrl) {
+    if (!imageUrl || !imageUrl?.trim()?.length) {
       reject();
     }
     const img = new Image();

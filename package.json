@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "main": "src/browser_action/popup.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "test": "jest",
