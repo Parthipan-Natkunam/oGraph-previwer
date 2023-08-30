@@ -1,6 +1,6 @@
 <p align="center">
 
-<span><img  src="./readmeImages/icon128.png" height="120px" style="vertical-align:middle;"><span style="vertical-align:middle;">&nbsp;<b>OGraph Previewer</b></span></span>
+<span><img  src="./icons/icon128.png" height="120px" style="vertical-align:middle;"><span style="vertical-align:middle;">&nbsp;<b>OGraph Previewer</b></span></span>
 
 </p>
 <br/>
