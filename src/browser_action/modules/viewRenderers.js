@@ -6,7 +6,7 @@ import {
   PREVIEW_IMG_HEIGHT,
 } from "./constants";
 import data from "./state";
-import { getImageWidth} from "./utils";
+import { getImageWidth } from "./utils";
 
 const getNoPreviewTemplateString = () => {
   return `<h3 class="no-data">${NO_OG_DATA}</h3>`;
@@ -23,7 +23,7 @@ const getCodeTemplateString = () => {
 
 const getPreviewTemplateString = (
   previewType,
-  { title, description, imageSrc, site_name, url, imgWidth, imgHeight }
+  { title, description, imageSrc, siteName, url }
 ) => {
   let templateString = "";
 
@@ -39,7 +39,7 @@ const getPreviewTemplateString = (
     <p>
      ${description ?? ""}
     </p>
-    <h4>${site_name ?? url ?? ""}</h4>
+    <h4>${siteName ?? url ?? ""}</h4>
   `;
   return templateString;
 };
@@ -62,18 +62,17 @@ export function updatePreview() {
       title,
       image: imageSrc,
       description,
-      site_name,
+      site_name: siteName,
       url,
     } = data.getData();
     let template;
     getImageWidth(imageSrc)
       .then(({ width, height }) => {
-        console.log(width, height);
         template = getPreviewTemplateString(PREVIEW_UI.WITH_IMAGE, {
           title,
           description,
           imageSrc,
-          site_name,
+          siteName,
           url,
           imgWidth: width,
           imgHeight: height,
@@ -83,7 +82,7 @@ export function updatePreview() {
         template = getPreviewTemplateString(PREVIEW_UI.WITHOUT_IMAGE, {
           title,
           description,
-          site_name,
+          siteName,
           url,
         });
       })
