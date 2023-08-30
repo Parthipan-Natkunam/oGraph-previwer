@@ -39,13 +39,14 @@ describe("Application Utility Method: getImageWidth", () => {
   test("resolves the width, when iamgeURL is loaded", () => {
     global.Image = class {
       constructor() {
-        this.width = 16;
+        this.naturalWidth = 16;
+        this.naturalHeight = 32;
         setTimeout(() => this.onload(), 300);
       }
     };
 
     return getImageWidth("../../icons/icon16.png").then((width) =>
-      expect(width).toBe(16)
+      expect(width).toEqual({height: 32, width: 16})
     );
   });
 });
