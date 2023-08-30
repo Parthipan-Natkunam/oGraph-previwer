@@ -1,5 +1,3 @@
-import { PREVIEW_IMG_HEIGHT, PREVIEW_IMG_WIDTH } from "./constants";
-
 export function getImageWidth(imageUrl) {
   return new Promise(function (resolve, reject) {
     if (!imageUrl || !imageUrl?.trim()?.length) {

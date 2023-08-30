@@ -16,11 +16,15 @@
   font-family: "Courier New", Courier, monospace;
 }
 .popup__heading {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0;
   color: #004582;
   padding-bottom: 10px;
   border-bottom: 2px solid #d6d6d6;
+}
+.popup__heading > span,
+.popup__heading > img {
+  vertical-align: middle;
 }
 .popup__content {
   margin: 8px 0;
