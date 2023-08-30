@@ -5,7 +5,7 @@ export function getImageWidth(imageUrl) {
     }
     const img = new Image();
     img.onload = function () {
-      resolve(this.width);
+      resolve({ width: this.naturalWidth, height: this.naturalHeight });
     };
     img.onerror = function () {
       reject();
@@ -14,17 +14,21 @@ export function getImageWidth(imageUrl) {
   });
 }
 
-export function getOgParserCodeString() {
-  return `(function(){
-    const ogData = {};
-    const ogTags = document.querySelectorAll('meta[property^="og:"]');
-    ogTags.forEach(tag=>{
-      const key = tag.getAttribute("property").substr(3);
-      const value = tag.getAttribute("content");
-      if(key){
-        ogData[key] = value;
-      }
-    });
-    return ogData;
-  })()`;
+export function parseOGData() {
+  const ogData = {};
+  const ogTags = document.querySelectorAll('meta[property^="og:"]');
+  ogTags.forEach((tag) => {
+    const key = tag.getAttribute("property").substr(3);
+    const value = tag.getAttribute("content");
+    if (key) {
+      ogData[key] = value;
+    }
+  });
+  return ogData;
+}
+
+export async function getCurrentTab() {
+  let queryOptions = { active: true, lastFocusedWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  return tab;
 }

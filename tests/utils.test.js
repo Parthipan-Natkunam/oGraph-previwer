@@ -3,24 +3,6 @@ import {
   getOgParserCodeString,
 } from "../src/browser_action/modules/utils";
 
-describe("Application Utility Method: getOgParserCodeString", () => {
-  const mockIIFECodeString = `(function(){
-    const ogData = {};
-    const ogTags = document.querySelectorAll('meta[property^="og:"]');
-    ogTags.forEach(tag=>{
-      const key = tag.getAttribute("property").substr(3);
-      const value = tag.getAttribute("content");
-      if(key){
-        ogData[key] = value;
-      }
-    });
-    return ogData;
-  })()`;
-  test("returns the stringified IIFE", () => {
-    expect(getOgParserCodeString()).toEqual(mockIIFECodeString);
-  });
-});
-
 describe("Application Utility Method: getImageWidth", () => {
   test("rejects the promise, when iamgeURL is empty", () => {
     return getImageWidth().catch((error) => expect(error).toEqual(undefined));
@@ -57,13 +39,14 @@ describe("Application Utility Method: getImageWidth", () => {
   test("resolves the width, when iamgeURL is loaded", () => {
     global.Image = class {
       constructor() {
-        this.width = 16;
+        this.naturalWidth = 16;
+        this.naturalHeight = 32;
         setTimeout(() => this.onload(), 300);
       }
     };
 
     return getImageWidth("../../icons/icon16.png").then((width) =>
-      expect(width).toBe(16)
+      expect(width).toEqual({height: 32, width: 16})
     );
   });
 });

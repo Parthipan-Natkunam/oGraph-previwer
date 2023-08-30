@@ -1,6 +1,6 @@
 {
   "name": "ographpreviewer",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "",
   "main": "src/browser_action/popup.js",
   "engines": {
