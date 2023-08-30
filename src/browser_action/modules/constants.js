@@ -30,3 +30,7 @@ export const PREVIEW_UI = {
 
 /*no data*/
 export const NO_OG_DATA = "No og tags present in this page";
+
+/*img dimensions*/
+export const PREVIEW_IMG_HEIGHT = 165;
+export const PREVIEW_IMG_WIDTH = 362;

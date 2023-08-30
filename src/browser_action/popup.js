@@ -8,13 +8,17 @@ document.getElementById(TABS_ID).addEventListener("click", switchTab);
 document.getElementById(COPY_BTN_ID).addEventListener("click", copyData);
 
 getCurrentTab().then((tab) => {
+  let ogData = null;
   chrome.scripting
     .executeScript({
       target: { tabId: tab.id },
       func: parseOGData,
     })
     .then((injectedResult) => {
-      const ogData = injectedResult?.[0]?.result ?? {};
+      ogData = injectedResult?.[0]?.result ?? {};
+    }).catch(() => {
+      ogData = {};
+    }).finally(() => {
       data.setData(ogData);
       renderViews();
     });

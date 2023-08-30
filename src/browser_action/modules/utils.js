@@ -1,3 +1,5 @@
+import { PREVIEW_IMG_HEIGHT, PREVIEW_IMG_WIDTH } from "./constants";
+
 export function getImageWidth(imageUrl) {
   return new Promise(function (resolve, reject) {
     if (!imageUrl || !imageUrl?.trim()?.length) {
@@ -5,7 +7,7 @@ export function getImageWidth(imageUrl) {
     }
     const img = new Image();
     img.onload = function () {
-      resolve(this.width);
+      resolve({ width: this.naturalWidth, height: this.naturalHeight });
     };
     img.onerror = function () {
       reject();
