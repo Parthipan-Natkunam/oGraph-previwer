@@ -22,7 +22,9 @@
 </a>
 </p>
 <br/>
-<p align="center"><a href='https://ko-fi.com/H2H03ZSCJ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a></p>
+<p align="center">
+    <img src="./readmeImages/bmc_qr.png" alt="Scan the QR code to support this project through a small financial contribution" width="250" /> 
+</p>
 <br/>
 
 A chrome extension to quickly preview open graph meta tag data of any web page in the current tab and retrieve it in a JSON format.
